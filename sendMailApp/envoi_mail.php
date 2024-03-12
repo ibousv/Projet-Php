@@ -1,32 +1,15 @@
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "post") {
+if (isset($_POST["envoyer"])) {
+    ini_set("SMTP", "localhost");
+    ini_set("smtp_port", "25");
     $destinataire = $_POST[$destinataire];
     $sujet = $_POST["sujet"];
     $message = $_POST["message"];
+    $my_email = "testmailapp.php@gmail.com";
+    $mail_header = "Name :" . $my_email . "\r\n Message :" . $message;
 
-    //configuration pour l'envoi de mail
-
-    $headers = "Form : webmaster@example.com"; // remplacement par votre adressa e-mail
-    $headers .= "\r\nContent-version:1.0";
-    $headers .= "\r\nContent-type:text/html ; charchet = utf-8";
-
-    // traitement du fichier joint
-
-    $fichier_joint = $_FILES["fichier"]["tmp_name"];
-    $nom_fichier = $_FILES["fichier"]["name"];
-
-    // vérification si un fichier est joint
-
-    if (!empty($fichier_joint)) {
-        $fichier_joint = chunk_split(base64_encode(file_get_contents($fichier_joint)));
-        $headers .= "\r\nContent-type : application/octet-stream; name = \"";
-        $headers = "\r\nContent-Disposition : attachement; filename =\"" . $nom_fichier . "\"\r\n\r\n";
-
-    }
-
-    // Envoi du mail
-    if (mail($destinataire, $sujet, $message, $$headers)) {
+    if (mail($destinataire, $sujet, $message, $mail_header)) {
         echo "Mail envoyé avec succès.";
 
     } else {

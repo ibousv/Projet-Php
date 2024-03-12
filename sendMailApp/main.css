@@ -1,3 +1,18 @@
-body{
-    background-color: green;
+body {
+    background-color: rgb(152, 247, 152);
+}
+
+div {
+    text-align: center;
+    margin: 0 auto;
+    padding: 10vh;
+}
+
+div form label {
+    padding: 10px;
+
+}
+
+textarea {
+    border-radius: 10px;
 }
